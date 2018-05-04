@@ -21,6 +21,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/updates/', include('update.api.urls')),
+    url(r'^api/pessoas/', include('pessoas.api.urls')),
     
 #     url(r'^json/example/$', json_exemple_view),
 #     url(r'^json/cbv/$', JsonCBV.as_view()),

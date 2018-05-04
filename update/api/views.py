@@ -163,7 +163,6 @@ class UpdateModelListAPIView(HttpResponseMixin, CSRFExemptMixin, View):
         if obj is None:
             error_data = json.dumps({"message": "Object not found"})
             return self.render_to_response(data=error_data, status_code=404)
-        print(request.body)
 
         data = json.loads(obj.serialize())
 
@@ -180,8 +179,8 @@ class UpdateModelListAPIView(HttpResponseMixin, CSRFExemptMixin, View):
 
         # new_data = json.loads(request.body.decode('utf-8'))
         # print(new_data['content'])
-        data = json.dumps({"message": "alterado com successo"})
-        return self.render_to_response(data=data)
+        data = json.dumps({'message': 'Not allowed, try later'})
+        return self.render_to_response(data=data, status_code=404)
 
     def delete(self, request, *args, **kwargs):
         valid_json = is_json(request.body.decode('utf-8'))
@@ -203,10 +202,11 @@ class UpdateModelListAPIView(HttpResponseMixin, CSRFExemptMixin, View):
             return self.render_to_response(data=error_data, status_code=404)
 
         deleted_, item_delete = obj.delete()
-        print(deleted_)
+
         if deleted_ == 1:
             data = json.dumps({"message": "Successfully deleted."})
             return self.render_to_response(data=data, status_code=200)
+
         data = json.dumps(
             {"message": "Could not delete item. Please try again later"})
         return self.render_to_response(data=data, status_code=400)
